@@ -167,7 +167,7 @@ async function main() {
   for (let i = 1; i <= 50; i++) {
     const firstName = pick(firstNames);
     const lastName = pick(lastNames);
-    const regNum = `SDMS-2024-${pad(i)}`;
+    const regNum = `AMS-${new Date().getFullYear()}-${pad(i)}`;
     const existing = await prisma.scout.findUnique({ where: { registrationNumber: regNum } });
     if (!existing) {
       const scout = await prisma.scout.create({
