@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { Eye, EyeOff, Shield } from 'lucide-react';
+import { UserRole } from '@scouts/shared';
 
 export default function LoginPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,8 +29,8 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginInput) => {
     try {
       const res = await apiClient.post('/auth/login', data);
-      const { accessToken, user } = res.data.data as { accessToken: string; user: { id: string; name: string; email: string; role: string } };
-      dispatch(setCredentials({ user: user as Parameters<typeof setCredentials>[0]['payload']['user'], accessToken }));
+      const { accessToken, user } = res.data.data as { accessToken: string; user: { id: string; name: string; email: string; role: UserRole } };
+dispatch(setCredentials({ user, accessToken }));
       router.push('/dashboard');
       toast.success(`Welcome back, ${user.name}`);
     } catch (err: unknown) {

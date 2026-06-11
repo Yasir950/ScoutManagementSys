@@ -130,7 +130,7 @@ function DutyCardPrint({ assignment, programName }: DutyCardProps) {
 
 export function DutyCard({ assignment, programName }: DutyCardProps) {
   const printRef = useRef<HTMLDivElement>(null);
-  const handlePrint = useReactToPrint({ contentRef: printRef });
+  const handlePrint = useReactToPrint({ content: () => printRef.current });
 
   return (
     <div className="space-y-3">
