@@ -38,8 +38,15 @@ export function createApp() {
     crossOriginEmbedderPolicy: false,
   }));
 
-  app.use(cors({
-    origin: env.CORS_ORIGIN,
+  const allowedOrigins = env.CORS_ORIGIN.split(',').map(o => o.trim());
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
