@@ -4,10 +4,12 @@ import { LoginSchema } from '@scouts/shared';
 import { ApiResponse } from '../../utils/ApiResponse';
 import { AppError } from '../../utils/AppError';
 
+const isProduction = process.env['NODE_ENV'] === 'production';
+
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env['NODE_ENV'] === 'production',
-  sameSite: 'strict' as const,
+  secure: true,
+  sameSite: 'none' as const,
   maxAge: 7 * 24 * 60 * 60 * 1000,
   path: '/',
 };
